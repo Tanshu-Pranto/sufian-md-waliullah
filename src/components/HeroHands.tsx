@@ -134,8 +134,9 @@ export default function HeroHands({ className = "" }: { className?: string }) {
       <div className="absolute inset-0 overflow-hidden bg-black mix-blend-lighten [container-type:size]">
         {/* The stage is always the film's own 16:9 box, so the mark can sit in
             film coordinates. Phones and portrait screens: a wide band, cropped
-            to the fingertips. Landscape: sized to cover the whole hero. */}
-        <div className="absolute left-1/2 top-[62%] aspect-video w-[max(100%,min(200%,110svh))] -translate-x-1/2 -translate-y-1/2 wide:top-1/2 wide:w-[max(100cqw,calc(100cqh*16/9))]">
+            just enough to keep both hands in view. Landscape: sized to cover
+            the whole hero. */}
+        <div className="absolute left-1/2 top-[62%] aspect-video w-[max(100%,min(145%,110svh))] -translate-x-1/2 -translate-y-1/2 wide:top-1/2 wide:w-[max(100cqw,calc(100cqh*16/9))]">
           <video
             ref={videoRef}
             className={`absolute inset-0 size-full object-cover motion-reduce:hidden ${still ? "hidden" : ""}`}
@@ -152,7 +153,7 @@ export default function HeroHands({ className = "" }: { className?: string }) {
             src={STILL}
             alt=""
             fill
-            sizes="(min-width: 64rem) 100vw, 200vw"
+            sizes="(min-width: 64rem) 100vw, 145vw"
             className={`object-cover motion-reduce:block ${still ? "block" : "hidden"}`}
           />
           {/* Centred on the gap between the fingertips (960, 538 in the 1920x1080 film). */}
