@@ -1,29 +1,28 @@
-import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Doto, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/content";
 
-const spaceGrotesk = Space_Grotesk({
+const doto = Doto({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["400", "500", "600", "700"],
+  axes: ["ROND"],
+  variable: "--font-doto",
 });
 
-const inter = Inter({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
   weight: ["400", "500", "600"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500"],
+  variable: "--font-plex-mono",
 });
 
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.role}`,
+  title: `${profile.shortName} · ${profile.role}`,
   description: profile.tagline,
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0b",
+  viewportFit: "cover",
 };
 
 const personSchema = {
@@ -32,7 +31,13 @@ const personSchema = {
   name: profile.name,
   jobTitle: profile.role,
   description: profile.tagline,
+  email: `mailto:${profile.email}`,
+  sameAs: [profile.github, profile.linkedin, profile.x],
 };
+
+// Flags that JS is running before first paint, so reveal-on-scroll styles
+// only hide content when something is there to show it again.
+const bootScript = `document.documentElement.classList.add('js')`;
 
 export default function RootLayout({
   children,
@@ -40,10 +45,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
-      >
+    <html lang="en" className={`${doto.variable} ${plexMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+      </head>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

@@ -1,22 +1,27 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
 import About from "@/components/About";
-import Stack from "@/components/Stack";
-import Projects from "@/components/Projects";
-import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
+import FAQ from "@/components/FAQ";
+import Hero from "@/components/Hero";
+import Nav from "@/components/Nav";
+import Process from "@/components/Process";
+import Services from "@/components/Services";
+import StackTrace from "@/components/StackTrace";
+import Work from "@/components/Work";
 
 export default function Home() {
   return (
     <>
       <Nav />
-      <main>
-        <Hero />
-        <Marquee />
-        <About />
-        <Stack />
-        <Projects />
+      <main id="main">
+        {/* The hero stays pinned while the About panel slides up over it. */}
+        <div className="relative">
+          <Hero />
+          <About />
+        </div>
+        <Services />
+        <StackTrace />
+        <Work />
+        <Process />
         <FAQ />
         <Contact />
       </main>
