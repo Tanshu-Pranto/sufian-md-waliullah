@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, GithubLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react/ssr";
+import { ArrowUpRightIcon, EnvelopeSimpleIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react/ssr";
 import { profile } from "@/data/content";
 import ArrowLink from "./ArrowLink";
 import CopyEmail from "./CopyEmail";
@@ -9,9 +9,9 @@ import SectionHeading from "./SectionHeading";
 const handle = (url: string) => `@${url.replace(/\/$/, "").split("/").pop()}`;
 
 const socials = [
-  { label: "GitHub", href: profile.github, Icon: GithubLogoIcon },
-  { label: "LinkedIn", href: profile.linkedin, Icon: LinkedinLogoIcon },
-  { label: "X", href: profile.x, Icon: XLogoIcon },
+  { label: "GitHub", href: profile.github, detail: handle(profile.github), Icon: GithubLogoIcon, external: true },
+  { label: "LinkedIn", href: profile.linkedin, detail: handle(profile.linkedin), Icon: LinkedinLogoIcon, external: true },
+  { label: "Email", href: `mailto:${profile.email}`, detail: profile.email, Icon: EnvelopeSimpleIcon, external: false },
 ];
 
 // On the home page this is the closing section; on /contact the page header
@@ -70,12 +70,12 @@ export default function Contact({ standalone = false }: { standalone?: boolean }
           </dl>
 
           <ul className="divide-y divide-ink-line border-y border-ink-line lg:col-span-8 lg:border-t-0">
-            {socials.map(({ label, href, Icon }) => (
+            {socials.map(({ label, href, detail, Icon, external }) => (
               <li key={label}>
                 <a
                   href={href}
-                  target="_blank"
-                  rel="noreferrer me"
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noreferrer me" : undefined}
                   className="group flex items-center gap-5 py-5 md:gap-8 md:py-6"
                 >
                   <Icon
@@ -85,14 +85,14 @@ export default function Contact({ standalone = false }: { standalone?: boolean }
                     className="shrink-0 transition-[color,transform] duration-300 ease-out group-hover:-rotate-6 group-hover:text-signal"
                   />
                   <span className="text-[clamp(22px,2.4vw,30px)] font-medium">{label}</span>
-                  <span className="hidden text-mute-dark sm:inline">{handle(href)}</span>
+                  <span className="hidden text-mute-dark sm:inline">{detail}</span>
                   <ArrowUpRightIcon
                     size={30}
                     weight="bold"
                     aria-hidden
                     className="ml-auto shrink-0 transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1"
                   />
-                  <span className="sr-only">(opens in a new tab)</span>
+                  {external ? <span className="sr-only">(opens in a new tab)</span> : null}
                 </a>
               </li>
             ))}

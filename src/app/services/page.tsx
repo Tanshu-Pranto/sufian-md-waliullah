@@ -9,7 +9,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { faqs, profile, serviceList, steps } from "@/data/content";
 import { pageMetadata, servicesSchema } from "@/lib/seo";
 
-const description = `Services from ${profile.name}, a MERN stack developer in ${profile.location}: full-stack web apps, REST APIs with Node.js and Express, Next.js and React front ends, database design, and deployment.`;
+const description = `Services from ${profile.name}, an AI engineer in ${profile.location}: AI features with LLMs, RAG and agents, full-stack web apps, REST APIs with Node.js and Express, Next.js and React front ends, database design, and deployment.`;
 
 export const metadata = pageMetadata({ title: "Services", description, path: "/services" });
 
@@ -33,8 +33,8 @@ export default function ServicesPage() {
         <PageHeader
           crumbs={[{ name: "Services", path: "/services" }]}
           title="Services."
-          rest="Full-stack web development with the MERN stack."
-          lead="I build and ship web applications with MongoDB, Express, React and Node.js. Hire me for a whole product, or for one layer of it: the API, the database, the front end or the deploy."
+          rest="AI features and the full-stack apps around them."
+          lead="I build LLM features, RAG search and agents, and the Next.js, Node.js and MongoDB apps they live in. Hire me for a whole product, or for one layer of it: the AI, the API, the database, the front end or the deploy."
           icon="stack"
         />
 

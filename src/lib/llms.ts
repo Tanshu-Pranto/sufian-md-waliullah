@@ -5,7 +5,7 @@ import { absolute } from "./seo";
 
 const pages = [
   { name: "About", path: "/about", note: `Who ${profile.name} is, key facts, skills and how he works` },
-  { name: "Services", path: "/services", note: "Full-stack MERN apps, REST APIs, Next.js front ends, database design, deployment" },
+  { name: "Services", path: "/services", note: "AI features with LLMs and RAG, full-stack MERN apps, REST APIs, Next.js front ends, database design, deployment" },
   { name: "Projects", path: "/projects", note: "Case studies of full-stack builds" },
   { name: "FAQ", path: "/faq", note: "Availability, remote work, the MERN stack, choosing a database" },
   { name: "Contact", path: "/contact", note: `How to reach ${profile.firstName} and what to include` },
@@ -32,7 +32,6 @@ ${serviceList.map((s) => `- [${s.title}](${absolute(`/services#${s.slug}`)}): ${
 
 - [GitHub](${profile.github})
 - [LinkedIn](${profile.linkedin})
-- [X](${profile.x})
 
 ## Optional
 
@@ -56,7 +55,7 @@ ${facts()}
 
 ## About
 
-${profile.name} is a ${profile.role} based in ${profile.location}. He builds complete web applications: the data model, the API, and the interface. He works remotely and communicates in writing, with preview links after each piece of work.
+${profile.name} is an AI engineer based in ${profile.location}. He builds AI-powered web applications: the model calls, the data they draw on, and the interface. He works remotely and communicates in writing, with preview links after each piece of work.
 
 ## Skills
 

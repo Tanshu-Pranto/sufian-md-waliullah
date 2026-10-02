@@ -8,7 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { profile } from "@/data/content";
 import { contactSchema, pageMetadata } from "@/lib/seo";
 
-const description = `Contact ${profile.name}, a MERN stack developer in ${profile.location}, about freelance projects, internships or collaborations. Email ${profile.email}.`;
+const description = `Contact ${profile.name}, an AI engineer in ${profile.location}, about freelance projects, internships or collaborations. Email ${profile.email}.`;
 
 export const metadata = pageMetadata({ title: "Contact", description, path: "/contact" });
 

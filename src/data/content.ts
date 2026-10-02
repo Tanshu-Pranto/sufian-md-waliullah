@@ -8,7 +8,7 @@ import type { DotIconName } from "./dot-icons";
 export const site = {
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mdsufian.me").replace(/\/$/, ""),
   // Bump when page content changes; feeds sitemap <lastmod> and page dates.
-  updated: "2026-10-02",
+  updated: "2026-10-03",
 };
 
 export const profile = {
@@ -17,30 +17,29 @@ export const profile = {
   lastName: "Waliullah",
   // Other spellings people search for. Helps search and AI engines match the name.
   alternateNames: ["Sufian Waliullah", "Md. Sufian", "Md Sufian Waliullah"],
-  role: "MERN stack developer",
+  role: "AI Engineer",
   tagline:
-    "Sufian Md. Waliullah is a MERN stack developer in Bangladesh who builds full-stack web apps with MongoDB, Express, React, Node.js and Next.js.",
+    "Sufian Md. Waliullah is an AI engineer in Bangladesh who builds AI-powered web apps: LLM features, RAG and agents, on Next.js, Node.js and MongoDB.",
   // PLACEHOLDER: confirm location and time zone
   location: "Bangladesh",
   countryCode: "BD",
   timeZone: "Asia/Dhaka",
   timeZoneLabel: "GMT+6",
-  // PLACEHOLDER: real contact details. These also feed the structured data
-  // (schema.org sameAs), so wrong links here hurt search, not just the page.
-  email: "hello@mdsufian.me",
-  github: "https://github.com/sufianpranto",
-  linkedin: "https://www.linkedin.com/in/sufianpranto",
-  x: "https://x.com/sufianpranto",
+  email: "waliullahsufian@gmail.com",
+  // These also feed the structured data (schema.org sameAs), so wrong links
+  // here hurt search, not just the page.
+  github: "https://github.com/Tanshu-Pranto",
+  linkedin: "https://www.linkedin.com/in/sufian-md-waliullah/",
   // PLACEHOLDER: confirm availability
   openTo: "Internships, freelance projects and collaborations",
 };
 
 export const heroIntro =
-  "I build full-stack web apps with MongoDB, Express, React and Node.js, from the database schema to the screen you tap.";
+  "I build AI-powered web apps: LLM features, RAG and agents, wired into full-stack Next.js and Node.js products.";
 
 // The big statement in the About section. Words fill in as you scroll.
 export const aboutStatement =
-  "I'm Sufian, a MERN stack developer in Bangladesh. I build complete web apps: the data model, the API, and the interface people use every day.";
+  "I'm Sufian, an AI engineer in Bangladesh. I build web apps with AI at the core: the model calls, the data they draw on, and the interface people use every day.";
 
 // PLACEHOLDER: let Sufian rewrite these in his own voice
 export const aboutParagraphs = [
@@ -49,7 +48,7 @@ export const aboutParagraphs = [
 ];
 
 export const facts = [
-  { label: "Focus", value: "MERN stack and Next.js, end to end" },
+  { label: "Focus", value: "AI features and full-stack apps, end to end" },
   { label: "Based in", value: "Bangladesh, working remotely" },
   { label: "Open to", value: profile.openTo },
 ];
@@ -57,15 +56,25 @@ export const facts = [
 // Short, quotable facts. Shown on /about and used for llms.txt.
 export const keyFacts = [
   { label: "Name", value: profile.name },
-  { label: "Role", value: "MERN stack developer (MongoDB, Express, React, Node.js)" },
+  { label: "Role", value: "AI engineer (LLM apps, RAG, agents) on a full-stack JavaScript base" },
   { label: "Based in", value: `${profile.location}, working remotely` },
   { label: "Time zone", value: `${profile.timeZoneLabel} (${profile.timeZone})` },
-  { label: "Core stack", value: "Next.js, React, TypeScript, Node.js, Express, MongoDB, PostgreSQL" },
+  { label: "Core stack", value: "OpenAI API, LangChain, Vercel AI SDK, Next.js, React, TypeScript, Node.js, MongoDB, PostgreSQL" },
   { label: "Open to", value: profile.openTo },
   { label: "Contact", value: profile.email },
 ];
 
+// PLACEHOLDER: confirm the AI tools with Sufian
 export const skills: { group: string; items: { name: string; note: string }[] }[] = [
+  {
+    group: "AI",
+    items: [
+      { name: "OpenAI API", note: "GPT models, tool calling, structured output" },
+      { name: "LangChain", note: "RAG pipelines and agents" },
+      { name: "Vercel AI SDK", note: "Streaming chat and tool calls in React" },
+      { name: "Hugging Face", note: "Open models and embeddings" },
+    ],
+  },
   {
     group: "Frontend",
     items: [
@@ -80,26 +89,17 @@ export const skills: { group: string; items: { name: string; note: string }[] }[
     items: [
       { name: "Node.js", note: "Runtime for APIs and scripts" },
       { name: "Express", note: "Routing, middleware, validation" },
+      { name: "Python", note: "FastAPI services and data scripts" },
       { name: "REST APIs", note: "Resource design, status codes, errors" },
-      { name: "JWT auth", note: "Sessions, refresh tokens, protected routes" },
     ],
   },
   {
     group: "Data",
     items: [
       { name: "MongoDB", note: "Document modeling and indexes" },
-      { name: "Mongoose", note: "Schemas and validation" },
       { name: "PostgreSQL", note: "Relational data and joins" },
+      { name: "pgvector", note: "Embeddings and similarity search" },
       { name: "Prisma", note: "Type-safe queries and migrations" },
-    ],
-  },
-  {
-    group: "Tooling",
-    items: [
-      { name: "Git & GitHub", note: "Branches, reviews, history" },
-      { name: "Docker", note: "Reproducible environments" },
-      { name: "Postman", note: "API testing and collections" },
-      { name: "Vercel", note: "Previews and production deploys" },
     ],
   },
 ];
@@ -134,6 +134,21 @@ export const serviceList: {
   includes: string[];
   stack: string[];
 }[] = [
+  {
+    slug: "ai-features",
+    title: "AI features and LLM apps",
+    icon: "lightning",
+    summary:
+      "Chat, search and automation built on large language models and wired into a real app: answers grounded in your own documents, agents that act through your API, and responses streamed into the interface.",
+    forWho: "Products that want AI to do real work for their users, not a demo that breaks on the second question.",
+    includes: [
+      "Chat and search over your own data with retrieval (RAG)",
+      "Tool calling, so the model can act through your API",
+      "Streaming responses in a React or Next.js interface",
+      "A set of test questions to check answers after every change",
+    ],
+    stack: ["OpenAI API", "LangChain", "Vercel AI SDK", "pgvector"],
+  },
   {
     slug: "mern-web-apps",
     title: "Full-stack MERN web apps",
@@ -245,12 +260,12 @@ export type Layer = {
 };
 
 export const layers: Layer[] = [
-  { id: "client", name: "Client", icon: "browser", tech: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
-  { id: "api", name: "API", icon: "braces", tech: ["Node.js", "Express", "REST", "JWT auth"] },
-  { id: "data", name: "Data", icon: "database", tech: ["MongoDB", "Mongoose", "PostgreSQL", "Prisma"] },
+  { id: "client", name: "Client", icon: "browser", tech: ["React", "Next.js", "TypeScript", "Vercel AI SDK"] },
+  { id: "api", name: "API", icon: "braces", tech: ["Node.js", "Express", "OpenAI API", "LangChain"] },
+  { id: "data", name: "Data", icon: "database", tech: ["MongoDB", "PostgreSQL", "pgvector", "Prisma"] },
 ];
 
-export const tooling = ["Git & GitHub", "Docker", "Postman", "Vercel"];
+export const tooling = ["Git & GitHub", "Docker", "Hugging Face", "Vercel"];
 
 // One request, step by step. `at` is which layer the packet sits on.
 export const traceSteps: { at: Layer["id"]; dir: "down" | "up"; text: string }[] = [
@@ -375,11 +390,11 @@ export type Faq = { q: string; a: string; home?: boolean };
 export const faqs: Faq[] = [
   {
     q: "Who is Sufian Md. Waliullah?",
-    a: "Sufian Md. Waliullah is a MERN stack developer based in Bangladesh. He builds full-stack web applications with MongoDB, Express, React and Node.js, uses Next.js for production front ends, and works remotely with clients and teams.",
+    a: "Sufian Md. Waliullah is an AI engineer based in Bangladesh. He builds AI-powered web applications, with LLM features, retrieval-augmented generation (RAG) and agents, on a full-stack base of Next.js, React, Node.js and MongoDB, and works remotely with clients and teams.",
   },
   {
     q: "What kind of work do you take on?",
-    a: "Full-stack web apps: REST APIs, database design, React and Next.js front ends, and getting all of it deployed. I'm happy to own a whole project or join an existing codebase.",
+    a: "AI features and the full-stack apps around them: LLM chat and search, RAG over your documents, agents that call your APIs, plus the REST APIs, databases and React and Next.js front ends they need. I'm happy to own a whole project or join an existing codebase.",
     home: true,
   },
   {

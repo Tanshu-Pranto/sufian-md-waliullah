@@ -1,6 +1,6 @@
 # Sufian Md. Waliullah, portfolio
 
-Portfolio site for Sufian Md. Waliullah, MERN stack developer, at [www.mdsufian.me](https://www.mdsufian.me). Next.js 16 (App Router), Tailwind CSS 4, Motion (`framer-motion`). Every page is prerendered as static HTML.
+Portfolio site for Sufian Md. Waliullah, AI engineer, at [www.mdsufian.me](https://www.mdsufian.me). Next.js 16 (App Router), Tailwind CSS 4, Motion (`framer-motion`). Every page is prerendered as static HTML.
 
 ```bash
 npm install
@@ -9,7 +9,7 @@ npm run dev
 
 ## Editing content
 
-All copy lives in [`src/data/content.ts`](src/data/content.ts). Lines marked `PLACEHOLDER` need real details: email, social links (these also feed the structured data), location, availability and projects.
+All copy lives in [`src/data/content.ts`](src/data/content.ts). Lines marked `PLACEHOLDER` need real details: location, availability and projects. The email, GitHub and LinkedIn there also feed the structured data (`sameAs`).
 
 Projects have a `placeholder` flag. While it's `true`, that case study page is `noindex` and left out of the sitemap, so sample work never shows up in search. Replace the project with real work, add `links`, then set it to `false`.
 

@@ -13,15 +13,15 @@ import { aboutParagraphs, keyFacts, profile, skills, steps } from "@/data/conten
 import type { DotIconName } from "@/data/dot-icons";
 import { aboutSchema, pageMetadata } from "@/lib/seo";
 
-const description = `About ${profile.name}, a MERN stack developer in ${profile.location}: background, skills across MongoDB, Express, React, Node.js and Next.js, and how he works with clients.`;
+const description = `About ${profile.name}, an AI engineer in ${profile.location}: background, skills across LLMs, RAG, Next.js, Node.js and MongoDB, and how he works with clients.`;
 
 export const metadata = pageMetadata({ title: "About", description, path: "/about" });
 
 const groupIcons: Record<string, DotIconName> = {
+  AI: "lightning",
   Frontend: "browser",
   Backend: "braces",
   Data: "database",
-  Tooling: "branch",
 };
 
 export default function AboutPage() {
@@ -33,8 +33,8 @@ export default function AboutPage() {
         <PageHeader
           crumbs={[{ name: "About", path: "/about" }]}
           title={`About ${profile.name}.`}
-          rest="MERN stack developer in Bangladesh."
-          lead={`${profile.name} is a MERN stack developer based in ${profile.location} (${profile.timeZoneLabel}). He builds full-stack web applications with MongoDB, Express, React and Node.js, uses Next.js and TypeScript for production front ends, and works remotely with clients and teams.`}
+          rest="AI engineer in Bangladesh."
+          lead={`${profile.name} is an AI engineer based in ${profile.location} (${profile.timeZoneLabel}). He builds AI-powered web applications, with LLM features, retrieval-augmented generation (RAG) and agents, on a full-stack base of Next.js, React, Node.js and MongoDB, and works remotely with clients and teams.`}
           icon="terminal"
         />
 

@@ -15,7 +15,7 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
 });
 
-const defaultTitle = `${profile.name} | MERN Stack Developer in ${profile.location}`;
+const defaultTitle = `${profile.name} | AI Engineer in ${profile.location}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -29,8 +29,10 @@ export const metadata: Metadata = {
   keywords: [
     profile.name,
     ...profile.alternateNames,
+    "AI engineer",
+    "AI engineer Bangladesh",
+    "LLM app developer",
     "MERN stack developer",
-    "MERN stack developer Bangladesh",
     "full-stack developer",
     "Next.js developer",
     "React developer",
@@ -84,8 +86,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // globals.css scrolls smoothly for in-page anchors. The data attribute lets
+  // Next switch that off while it resets scroll on a route change; otherwise
+  // the reset animates and can land on the footer instead of the top.
   return (
-    <html lang="en" className={`${doto.variable} ${plexMono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${doto.variable} ${plexMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />

@@ -5,5 +5,5 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return ogImage({ title: "About", subtitle: "MERN stack developer in Bangladesh: background, skills and how I work." });
+  return ogImage({ title: "About", subtitle: "AI engineer in Bangladesh: background, skills and how I work." });
 }

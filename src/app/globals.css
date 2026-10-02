@@ -303,3 +303,110 @@ html.js .dot-icon[data-assemble][data-shown] rect {
     }
   }
 }
+
+/* The hero S builds itself in step with the film. Hidden until its script
+   takes over, so it never flashes complete before the build starts. */
+html.js .hero-mark [data-piece] {
+  opacity: 0;
+}
+
+/* The lit dot of the S mark runs the letter like a pen: left along the top,
+   down, right across the middle, down, and left along the bottom. It fades
+   out there and lights up at home again. Where the S is two dots wide, a twin
+   lights the outer dot of each row, so the pair runs down together. The route
+   follows GLYPH in LogoMark.tsx; --cell is one grid step in the dot's own
+   units. One step is 3% of the loop (about 250ms). */
+@keyframes mark-run {
+  0%,
+  22% {
+    transform: none;
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+  }
+  41% {
+    transform: translate(calc(-4 * var(--cell)), 0);
+  }
+  50% {
+    transform: translate(calc(-4 * var(--cell)), calc(3 * var(--cell)));
+  }
+  59% {
+    transform: translate(calc(-1 * var(--cell)), calc(3 * var(--cell)));
+  }
+  68% {
+    transform: translate(calc(-1 * var(--cell)), calc(6 * var(--cell)));
+    animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
+  }
+  87%,
+  90.5% {
+    transform: translate(calc(-5 * var(--cell)), calc(6 * var(--cell)));
+    opacity: 1;
+    animation-timing-function: ease;
+  }
+  95.5% {
+    transform: translate(calc(-5 * var(--cell)), calc(6 * var(--cell)));
+    opacity: 0;
+    animation-timing-function: linear;
+  }
+  95.51% {
+    transform: none;
+    opacity: 0;
+    animation-timing-function: ease;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+/* The twin fades in beside the runner as it enters a two-wide stretch, runs
+   down with it, and fades out as the runner leaves. Unseen in between. */
+@keyframes mark-twin {
+  0%,
+  41% {
+    transform: translate(calc(-5 * var(--cell)), var(--cell));
+    opacity: 0;
+  }
+  44% {
+    transform: translate(calc(-5 * var(--cell)), var(--cell));
+    opacity: 1;
+  }
+  47% {
+    transform: translate(calc(-5 * var(--cell)), calc(2 * var(--cell)));
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(-5 * var(--cell)), calc(2 * var(--cell)));
+    opacity: 0;
+  }
+  59% {
+    transform: translate(0, calc(4 * var(--cell)));
+    opacity: 0;
+  }
+  62% {
+    transform: translate(0, calc(4 * var(--cell)));
+    opacity: 1;
+  }
+  65% {
+    transform: translate(0, calc(5 * var(--cell)));
+    opacity: 1;
+  }
+  68%,
+  100% {
+    transform: translate(0, calc(5 * var(--cell)));
+    opacity: 0;
+  }
+}
+.mark-run,
+.mark-twin {
+  --cell: 1px;
+  animation: mark-run 8.2s linear infinite;
+}
+.mark-twin {
+  opacity: 0;
+  animation-name: mark-twin;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mark-run,
+  .mark-twin {
+    animation: none;
+  }
+}

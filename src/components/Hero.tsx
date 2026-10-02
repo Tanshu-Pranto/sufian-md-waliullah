@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { MapPinIcon } from "@phosphor-icons/react/ssr";
 import { heroIntro, profile } from "@/data/content";
-import HalftonePortrait from "./HalftonePortrait";
+import HeroHands from "./HeroHands";
 import ArrowLink from "./ArrowLink";
 import LocalTime from "./LocalTime";
 
@@ -30,7 +30,7 @@ export default function Hero() {
       className="sticky top-0 h-svh min-h-[620px] overflow-hidden bg-ink text-paper"
     >
       <motion.div className="absolute inset-0 origin-[50%_30%]" style={{ scale }}>
-        <HalftonePortrait className="absolute inset-0" />
+        <HeroHands className="absolute inset-0" />
       </motion.div>
       <motion.div aria-hidden className="pointer-events-none absolute inset-0 bg-ink" style={{ opacity: shade }} />
 
@@ -69,10 +69,10 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* Phones: location and CTA sit under the role so nothing covers the portrait. */}
+        {/* Phones: location and CTA sit under the role so nothing covers the hands. */}
         <div className="mt-5 flex flex-col items-center gap-4 wide:mt-auto wide:flex-row wide:items-end wide:justify-between">
           <div className="fade-up" style={{ ["--delay" as string]: "1300ms" }}>
-            <p className="hidden max-w-[min(40ch,calc((100vw-49.6svh)/2-72px))] text-[16px] leading-relaxed text-paper/90 wide:block">
+            <p className="hidden max-w-[40ch] text-[16px] leading-relaxed text-paper/90 wide:block">
               {heroIntro}
             </p>
             <p className="flex items-center gap-2 whitespace-nowrap text-[15px] text-mute-dark wide:mt-3">

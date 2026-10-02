@@ -15,7 +15,6 @@ const pages = [
 const elsewhere = [
   { label: "GitHub", href: profile.github },
   { label: "LinkedIn", href: profile.linkedin },
-  { label: "X", href: profile.x },
 ];
 
 const linkClass = "text-[15px] text-paper/85 underline-offset-4 transition-colors duration-200 hover:text-paper hover:underline";

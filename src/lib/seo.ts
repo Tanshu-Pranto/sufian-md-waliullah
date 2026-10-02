@@ -20,7 +20,7 @@ export function pageMetadata({
   path: string;
   index?: boolean;
 }): Metadata {
-  const fullTitle = title ? `${title} | ${profile.name}` : `${profile.name} | MERN Stack Developer in ${profile.location}`;
+  const fullTitle = title ? `${title} | ${profile.name}` : `${profile.name} | AI Engineer in ${profile.location}`;
   // Next replaces (not merges) openGraph and twitter objects per page, so the
   // shared fields are repeated here.
   const asProfile = path === "/" || path === "/about";
@@ -45,8 +45,14 @@ export function pageMetadata({
 
 // ---------- schema.org (JSON-LD) ----------
 
-const sameAs = [profile.github, profile.linkedin, profile.x];
-const knowsAbout = ["MERN stack", "Full-stack web development", ...skills.flatMap((g) => g.items.map((i) => i.name))];
+const sameAs = [profile.github, profile.linkedin];
+const knowsAbout = [
+  "Artificial intelligence",
+  "Large language models",
+  "Retrieval-augmented generation",
+  "Full-stack web development",
+  ...skills.flatMap((g) => g.items.map((i) => i.name)),
+];
 
 export const personSchema = {
   "@type": "Person",
@@ -58,7 +64,7 @@ export const personSchema = {
   url: site.url,
   image: absolute("/img/sufian-portrait.webp"),
   email: `mailto:${profile.email}`,
-  jobTitle: "MERN Stack Developer",
+  jobTitle: "AI Engineer",
   description: profile.tagline,
   knowsAbout,
   sameAs,
@@ -69,7 +75,7 @@ export const personSchema = {
   },
   hasOccupation: {
     "@type": "Occupation",
-    name: "MERN Stack Developer",
+    name: "AI Engineer",
     occupationLocation: { "@type": "Country", name: profile.location },
     skills: knowsAbout.join(", "),
   },
