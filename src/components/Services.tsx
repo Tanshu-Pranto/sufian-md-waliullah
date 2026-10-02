@@ -1,5 +1,6 @@
 import { services } from "@/data/content";
 import ApiLog from "./ApiLog";
+import ArrowLink from "./ArrowLink";
 import DitherField from "./DitherField";
 import DotIcon from "./DotIcon";
 import HalftoneFade from "./HalftoneFade";
@@ -11,10 +12,13 @@ export default function Services() {
   const { interfaces, apis, data, deploys } = services;
 
   return (
-    <section id="services" data-nav="about" data-nav-theme="light" className="bg-paper pb-36 pt-8">
+    <section id="services" data-nav="services" data-nav-theme="light" className="bg-paper pb-36 pt-8">
       <div className="shell">
-        <Reveal>
+        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading lead="What I build," rest="from the first schema to the deploy." />
+          <ArrowLink href="/services" tone="ink" className="shrink-0">
+            All services
+          </ArrowLink>
         </Reveal>
 
         <div className="mt-14 grid gap-3 md:grid-cols-2 lg:grid-cols-3">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CaretRightIcon } from "@phosphor-icons/react/ssr";
 import type { ReactNode } from "react";
 
@@ -24,16 +25,27 @@ export default function ArrowLink({
   className?: string;
 }) {
   const t = tones[tone];
-  return (
-    <a
-      href={href}
-      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-      className={`group press inline-flex items-center gap-3 rounded-[12px] p-1.5 pr-5 text-[15px] font-medium ${t.chip} ${className}`}
-    >
+  const classes = `group press inline-flex items-center gap-3 rounded-[12px] p-1.5 pr-5 text-[15px] font-medium ${t.chip} ${className}`;
+  const inner = (
+    <>
       <span className={`grid size-9 place-items-center rounded-[8px] ${t.tile} ${t.swap}`}>
         <CaretRightIcon size={16} weight="bold" className="tile-arrow" aria-hidden />
       </span>
       {children}
+    </>
+  );
+
+  // Internal routes get client-side navigation; mailto and external links stay plain.
+  if (href.startsWith("/") && !external) {
+    return (
+      <Link href={href} className={classes}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})} className={classes}>
+      {inner}
     </a>
   );
 }

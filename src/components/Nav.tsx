@@ -1,33 +1,30 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navLinks, profile, type NavId } from "@/data/content";
 import ArrowLink from "./ArrowLink";
-
-// A 5x7 dot-matrix "S", the site mark.
-const MARK = [".###.", "#...#", "#....", ".###.", "....#", "#...#", ".###."];
-
-function Mark() {
-  return (
-    <svg viewBox="0 0 5 7" width={15} height={21} aria-hidden>
-      {MARK.flatMap((row, y) =>
-        [...row].map((c, x) =>
-          c === "#" ? <rect key={`${x}-${y}`} x={x + 0.1} y={y + 0.1} width={0.8} height={0.8} fill="currentColor" /> : null,
-        ),
-      )}
-    </svg>
-  );
-}
+import LogoMark from "./LogoMark";
 
 type Box = { left: number; right: number };
 
+// Which nav item a path belongs to, e.g. /projects/storefront → work.
+const fromPath = (path: string): NavId | null =>
+  navLinks.find((l) => path === l.href || path.startsWith(`${l.href}/`))?.id ?? null;
+
 export default function Nav() {
-  const [active, setActive] = useState<NavId | null>(null);
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+  const [spied, setSpied] = useState<NavId | null>(null);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [atTop, setAtTop] = useState(true);
   const [boxes, setBoxes] = useState<Record<string, Box>>({});
   const listRef = useRef<HTMLUListElement>(null);
+  const active = onHome ? spied : fromPath(pathname);
 
-  // Which section sits under the 40% line, and what color is under the header.
+  // On the home page, light up the item for the section under the 40% line.
+  // Everywhere, track whether the header sits over a dark or light section.
   useEffect(() => {
     let frame = 0;
     const update = () => {
@@ -43,8 +40,9 @@ export default function Nav() {
         const r = s.getBoundingClientRect();
         if (r.top <= 36 && r.bottom > 36) tone = s.dataset.navTheme as "dark" | "light";
       });
-      setActive(current);
+      setSpied(current);
       setTheme(tone);
+      setAtTop(window.scrollY < 48);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -57,7 +55,7 @@ export default function Nav() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [pathname]);
 
   // Measure each link so the active copy can be clipped to it.
   useEffect(() => {
@@ -91,44 +89,45 @@ export default function Nav() {
 
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <div className="shell flex h-[72px] items-center justify-between">
-          <a
-            href="#top"
+          <Link
+            href="/"
             className="pointer-events-auto group press flex items-center gap-3"
-            aria-label={`${profile.shortName}, back to top`}
+            aria-label={`${profile.name}, home`}
           >
             <span className="grid size-10 place-items-center rounded-[10px] bg-ink text-paper ring-1 ring-ink-line">
-              <Mark />
+              <LogoMark size={19} />
             </span>
+            {/* The name floats with no backdrop, so it steps aside once content scrolls under it. */}
             <span
-              className={`hidden text-[15px] font-medium transition-colors duration-300 lg:block ${
+              className={`hidden text-[15px] font-medium transition-[color,opacity,transform] duration-300 ease-out lg:block ${
                 onDark ? "text-paper" : "text-ink"
-              }`}
+              } ${atTop ? "" : "pointer-events-none -translate-x-1 opacity-0"}`}
             >
-              {profile.shortName}
+              {profile.name}
             </span>
-          </a>
+          </Link>
 
-          <ArrowLink href="#contact" tone="signal" className="pointer-events-auto">
+          <ArrowLink href="/contact" tone="signal" className="pointer-events-auto">
             Let&apos;s talk
           </ArrowLink>
         </div>
       </header>
 
       <nav
-        aria-label="Sections"
+        aria-label="Main"
         className="fixed bottom-[calc(12px+env(safe-area-inset-bottom,0px))] left-1/2 z-50 -translate-x-1/2 lg:bottom-auto lg:top-4"
       >
         <div className="relative rounded-[12px] bg-paper-2 p-1 shadow-[0_8px_28px_rgb(0_0_0/0.16)]">
           <ul ref={listRef} className="flex">
             {navLinks.map((l) => (
               <li key={l.id} data-id={l.id}>
-                <a
-                  href={`#${l.id}`}
-                  aria-current={active === l.id ? "true" : undefined}
-                  className="block rounded-[8px] px-3 py-2 text-[14px] font-medium text-ink sm:px-4"
+                <Link
+                  href={l.href}
+                  aria-current={!onHome && active === l.id ? "page" : undefined}
+                  className="block rounded-[8px] px-2.5 py-2 text-[14px] font-medium text-ink sm:px-4"
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -139,7 +138,7 @@ export default function Nav() {
             style={{ clipPath: clip, opacity: box ? 1 : 0 }}
           >
             {navLinks.map((l) => (
-              <li key={l.id} className="px-3 py-2 text-[14px] font-medium text-paper sm:px-4">
+              <li key={l.id} className="px-2.5 py-2 text-[14px] font-medium text-paper sm:px-4">
                 {l.label}
               </li>
             ))}

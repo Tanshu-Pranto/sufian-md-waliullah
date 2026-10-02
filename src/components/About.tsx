@@ -1,6 +1,7 @@
 import Image from "next/image";
 import portrait from "@/assets/sufian.webp";
 import { aboutParagraphs, aboutStatement, facts, profile } from "@/data/content";
+import ArrowLink from "./ArrowLink";
 import Parallax from "./Parallax";
 import Reveal from "./Reveal";
 
@@ -43,7 +44,7 @@ export default function About() {
             <Reveal variant="clip" className="overflow-hidden rounded-[18px] bg-paper-3">
               <Image
                 src={portrait}
-                alt={`Portrait of ${profile.shortName} in a navy blazer and white shirt`}
+                alt={`Portrait of ${profile.name} in a navy blazer and white shirt`}
                 placeholder="blur"
                 sizes="(min-width: 768px) 40vw, 100vw"
                 className="aspect-[4/5] h-auto w-full object-cover object-top"
@@ -61,6 +62,11 @@ export default function About() {
                 {p}
               </Reveal>
             ))}
+            <Reveal delay={120}>
+              <ArrowLink href="/about" tone="ink" className="mt-3">
+                More about me
+              </ArrowLink>
+            </Reveal>
             <Reveal delay={160} className="mt-auto pt-8">
               <dl className="divide-y divide-paper-line border-y border-paper-line">
                 {facts.map((f) => (

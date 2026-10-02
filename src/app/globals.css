@@ -187,7 +187,7 @@ html.js .dot-icon[data-assemble][data-shown] rect {
 
 /* ---------- Hero name power-on ----------
    Each letter flickers on like a dot-matrix sign warming up. First load only. */
-.power-on > span > span {
+.power-on .ch {
   display: inline-block;
   animation: power-on 900ms steps(1, end) both;
   animation-delay: calc(300ms + var(--i) * 55ms);
@@ -253,7 +253,7 @@ html.js .dot-icon[data-assemble][data-shown] rect {
   .dot-icon[data-ripple] rect {
     animation: none;
   }
-  .power-on > span > span,
+  .power-on .ch,
   .fade-up {
     animation: fade-up-reduced 400ms ease both;
   }

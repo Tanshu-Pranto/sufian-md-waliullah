@@ -8,7 +8,11 @@ import HalftonePortrait from "./HalftonePortrait";
 import ArrowLink from "./ArrowLink";
 import LocalTime from "./LocalTime";
 
-const NAME = ["Sufian", "Pranto"];
+// Lines on phones; one line from `sm` up. Real spaces stay in the DOM so the
+// name reads correctly to crawlers even though letters are split for the effect.
+const LINES = [["Sufian"], ["Md.", "Waliullah"]];
+const WORDS = LINES.flat();
+const offset = (w: number) => WORDS.slice(0, w).join("").length;
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -31,32 +35,39 @@ export default function Hero() {
       <motion.div aria-hidden className="pointer-events-none absolute inset-0 bg-ink" style={{ opacity: shade }} />
 
       <div className="shell relative flex h-full flex-col pb-28 pt-[clamp(96px,13svh,168px)] wide:pb-10">
-        <h1 className="text-center">
-          <span className="sr-only">
-            {profile.shortName}, {profile.role}
-          </span>
-          <span
-            aria-hidden
-            className="power-on block font-display text-[clamp(56px,6.6vw,100px)] font-extrabold leading-[0.9]"
-          >
-            {NAME.map((word, w) => (
-              <span key={word} className="block sm:mx-[0.2em] sm:inline-block">
-                {[...word].map((ch, j) => (
-                  <span key={j} style={{ ["--i" as string]: w * NAME[0].length + j }}>
-                    {ch}
+        {/* Real text in the h1 (the letters are split only for the flicker), with an
+            aria-label so screen readers say the name once, not letter by letter. */}
+        <h1 className="text-center" aria-label={`${profile.name}, ${profile.role}`}>
+          <span className="power-on block font-display text-[min(9.6vw,48px)] font-extrabold leading-[0.95] sm:text-[clamp(38px,4vw,60px)]">
+            {LINES.map((line, l) => (
+              <span key={l} className="whitespace-nowrap">
+                {line.map((word, k) => (
+                  <span key={word}>
+                    {k > 0 ? " " : null}
+                    {[...word].map((ch, j) => (
+                      <span key={j} className="ch" style={{ ["--i" as string]: offset(WORDS.indexOf(word)) + j }}>
+                        {ch}
+                      </span>
+                    ))}
                   </span>
                 ))}
+                {l < LINES.length - 1 ? (
+                  <>
+                    {" "}
+                    <br className="sm:hidden" />
+                  </>
+                ) : null}
               </span>
             ))}
           </span>
+          <span className="sr-only">, </span>
+          <span
+            className="fade-up mt-5 block font-mono text-[17px] font-normal text-mute-dark"
+            style={{ ["--delay" as string]: "900ms" }}
+          >
+            {profile.role}
+          </span>
         </h1>
-        <p
-          className="fade-up mt-5 text-center text-[17px] text-mute-dark"
-          style={{ ["--delay" as string]: "900ms" }}
-          aria-hidden
-        >
-          {profile.role}
-        </p>
 
         {/* Phones: location and CTA sit under the role so nothing covers the portrait. */}
         <div className="mt-5 flex flex-col items-center gap-4 wide:mt-auto wide:flex-row wide:items-end wide:justify-between">
@@ -70,7 +81,7 @@ export default function Hero() {
             </p>
           </div>
           <div className="fade-up" style={{ ["--delay" as string]: "1450ms" }}>
-            <ArrowLink href="#contact" tone="signal">
+            <ArrowLink href="/contact" tone="signal">
               Start a project
             </ArrowLink>
           </div>

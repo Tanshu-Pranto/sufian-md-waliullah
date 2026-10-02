@@ -10,8 +10,19 @@ const SIGNAL = [255, 79, 18];
  * The name set as a field of square dots across the footer. Dots near the
  * pointer swell and warm to the signal color.
  */
-export default function DotWordmark({ text, className = "" }: { text: string; className?: string }) {
+export default function DotWordmark({
+  text,
+  narrowLines,
+  className = "",
+}: {
+  text: string;
+  // How to break the text on phones; defaults to one word per line.
+  narrowLines?: string[];
+  className?: string;
+}) {
   const ref = useRef<HTMLCanvasElement>(null);
+  // A string, so a new array with the same lines doesn't rebuild the canvas.
+  const narrow = narrowLines?.join("\n");
 
   useEffect(() => {
     const canvas = ref.current;
@@ -28,7 +39,7 @@ export default function DotWordmark({ text, className = "" }: { text: string; cl
       W = w;
       cell = W < 640 ? 5 : W < 1024 ? 7 : 9;
       const family = getComputedStyle(document.body).fontFamily;
-      const lines = W < 640 ? text.split(" ") : [text];
+      const lines = W < 640 ? (narrow?.split("\n") ?? text.split(" ")) : [text];
       const measure = document.createElement("canvas").getContext("2d")!;
       measure.font = `600 100px ${family}`;
       const widest = Math.max(...lines.map((l) => measure.measureText(l).width));
@@ -142,7 +153,7 @@ export default function DotWordmark({ text, className = "" }: { text: string; cl
       canvas.removeEventListener("pointermove", onMove);
       canvas.removeEventListener("pointerleave", onLeave);
     };
-  }, [text]);
+  }, [text, narrow]);
 
   return (
     <div className={className}>

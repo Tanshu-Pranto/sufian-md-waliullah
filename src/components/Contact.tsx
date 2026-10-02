@@ -2,7 +2,6 @@ import { ArrowUpRightIcon, GithubLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@
 import { profile } from "@/data/content";
 import ArrowLink from "./ArrowLink";
 import CopyEmail from "./CopyEmail";
-import DotWordmark from "./DotWordmark";
 import LocalTime from "./LocalTime";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -15,7 +14,9 @@ const socials = [
   { label: "X", href: profile.x, Icon: XLogoIcon },
 ];
 
-export default function Contact() {
+// On the home page this is the closing section; on /contact the page header
+// already says it, so the section heading is dropped.
+export default function Contact({ standalone = false }: { standalone?: boolean }) {
   const [user, domain] = profile.email.split("@");
 
   return (
@@ -23,17 +24,20 @@ export default function Contact() {
       id="contact"
       data-nav="contact"
       data-nav-theme="dark"
-      className="relative z-10 -mt-7 overflow-clip rounded-t-[28px] bg-ink text-paper"
+      aria-label={standalone ? "Contact details" : undefined}
+      className={`relative z-10 overflow-clip bg-ink pb-8 text-paper ${standalone ? "" : "-mt-7 rounded-t-[28px]"}`}
     >
-      <div className="shell pt-24 md:pt-32">
-        <Reveal>
-          <SectionHeading dark lead="Have something to build?" rest="Email is the fastest way to reach me." />
-        </Reveal>
+      <div className={`shell ${standalone ? "pt-4" : "pt-24 md:pt-32"}`}>
+        {standalone ? null : (
+          <Reveal>
+            <SectionHeading dark lead="Have something to build?" rest="Email is the fastest way to reach me." />
+          </Reveal>
+        )}
 
         <Reveal delay={80}>
           <a
             href={`mailto:${profile.email}`}
-            className="mt-12 block w-fit font-display text-[clamp(30px,7.4vw,112px)] font-extrabold leading-[0.95] transition-colors duration-200 hover:text-signal"
+            className={`${standalone ? "" : "mt-12"} block w-fit font-display text-[clamp(30px,7.4vw,112px)] font-extrabold leading-[0.95] transition-colors duration-200 hover:text-signal`}
           >
             <span className="block">{user}@</span>
             <span className="block">{domain}</span>
@@ -71,7 +75,7 @@ export default function Contact() {
                 <a
                   href={href}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer me"
                   className="group flex items-center gap-5 py-5 md:gap-8 md:py-6"
                 >
                   <Icon
@@ -96,14 +100,6 @@ export default function Contact() {
         </div>
       </div>
 
-      <DotWordmark text="SUFIAN PRANTO" className="shell mt-24 md:mt-32" />
-
-      <div className="shell flex flex-col gap-2 border-t border-ink-line pb-[calc(96px+env(safe-area-inset-bottom,0px))] pt-6 text-[14px] text-mute-dark sm:flex-row sm:justify-between lg:pb-8">
-        <p>© {new Date().getFullYear()} {profile.name}</p>
-        <a href="#top" className="w-fit underline-offset-4 hover:text-paper hover:underline">
-          Back to top
-        </a>
-      </div>
     </section>
   );
 }

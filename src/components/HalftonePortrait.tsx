@@ -124,7 +124,7 @@ export default function HalftonePortrait({ className = "" }: { className?: strin
             fig = 1;
             const lum = (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255;
             // Steep curve so skin shading reads as dot size, not a flat white mask.
-            let vp = Math.max(0.05, Math.min(1, (lum - 0.12) / 0.83) ** 2.2);
+            let vp = Math.max(0.05, Math.max(0, Math.min(1, (lum - 0.12) / 0.83)) ** 2.2);
             // Rim light where the figure meets the dark, like a backlit silhouette.
             const edge = Math.min(
               alphaAt(cx - 2, cy), alphaAt(cx + 2, cy), alphaAt(cx, cy - 2), alphaAt(cx, cy + 2),

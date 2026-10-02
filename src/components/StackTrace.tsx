@@ -67,7 +67,7 @@ export default function StackTrace() {
   return (
     <section
       id="stack"
-      data-nav="stack"
+      data-nav="services"
       data-nav-theme="dark"
       className="relative z-10 -mt-7 rounded-t-[28px] bg-ink pb-36 pt-24 text-paper md:pt-32"
     >

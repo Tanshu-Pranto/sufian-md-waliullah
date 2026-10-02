@@ -2,7 +2,7 @@
 
 import { useRef, useSyncExternalStore } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { projects, type Project } from "@/data/content";
+import { projects, projectUrl, type Project } from "@/data/content";
 import ArrowLink from "./ArrowLink";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -40,8 +40,11 @@ export default function Work() {
       className="relative z-10 -mt-7 rounded-t-[28px] bg-paper pt-24 md:pt-32"
     >
       <div className="shell">
-        <Reveal>
+        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading lead="Selected work." rest="Three builds that each cover the whole stack." />
+          <ArrowLink href="/projects" tone="ink" className="shrink-0">
+            All projects
+          </ArrowLink>
         </Reveal>
         <div ref={ref} className="mt-14 pb-16 lg:pb-[8vh]">
           {projects.map((p, i) => (
@@ -98,15 +101,16 @@ function ProjectCard({
               </li>
             ))}
           </ul>
-          {project.links.length > 0 && (
-            <div className="mt-6 flex flex-wrap gap-3">
-              {project.links.map((l) => (
-                <ArrowLink key={l.href} href={l.href} external tone={index === 0 ? "paper" : "ink"}>
-                  {l.label}
-                </ArrowLink>
-              ))}
-            </div>
-          )}
+          <div className="mt-6 flex flex-wrap gap-3">
+            <ArrowLink href={projectUrl(project)} tone={index === 0 ? "paper" : "ink"}>
+              Read the case study<span className="sr-only">: {project.title}</span>
+            </ArrowLink>
+            {project.links.map((l) => (
+              <ArrowLink key={l.href} href={l.href} external tone={index === 0 ? "paper" : "ink"}>
+                {l.label}
+              </ArrowLink>
+            ))}
+          </div>
         </div>
         <div className={`overflow-hidden rounded-[16px] ${tone.panel}`}>
           <Vignette />
